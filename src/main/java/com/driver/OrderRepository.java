@@ -35,18 +35,22 @@ public class OrderRepository {
     }
     //3
     public void addPair(String order, String partner){
-        pair.put(order,partner);
-        if(pair_list.containsKey(partner)){
-            pair_list.get(partner).add(order);
+        // this if is change extra - see it later
+        if(order_map.containsKey(order) && partner_map.containsKey(partner)) {
+
+
+            if (pair_list.containsKey(partner)) {
+                pair_list.get(partner).add(order);
+            } else {
+                List<String> temp = new ArrayList<>();
+                temp.add(order);
+                pair_list.put(partner, temp);
+            }
+            DeliveryPartner obj = partner_map.get(partner);
+            int no = pair_list.get(partner).size();
+            obj.setNumberOfOrders(no);
+            pair.put(order, partner);
         }
-        else{
-            List<String> temp = new ArrayList<>();
-            temp.add(order);
-            pair_list.put(partner,temp);
-        }
-        DeliveryPartner obj = partner_map.get(partner);
-        int no = pair_list.get(partner).size();
-        obj.setNumberOfOrders(no);
     }
     //4
     public Order get_order_by_id(String id){
@@ -62,13 +66,17 @@ public class OrderRepository {
     }
    //6
     public Integer order_count(String id){
-        if(pair_list.containsKey(id))
-        return  pair_list.get(id).size();
-        return  0;
+        Integer count = 0;
+        if(partner_map.containsKey(id)){
+            count = partner_map.get(id).getNumberOfOrders();
+        }
+        return  count;
     }
     //7
     public List<String> order_list(String id){
+        if(pair_list.containsKey(id))
         return pair_list.get(id);
+        return new ArrayList<String>();
     }
     //8
     public List<String> all_orders(){
@@ -76,15 +84,23 @@ public class OrderRepository {
     }
     //9
     public int unassigned_order(){
+        // change it if doest work
         return order_map.size()- pair.size();
     }
     //10
-    public int getOrdersLeftAfterGivenTimeByPartnerId(int time, String id){
-        List<String> list = pair_list.get(id);
-        int count = 0;
-        for(String i : list){
-            Order obj = order_map.get(i);
-            if(obj.getDeliveryTime() > time) count++;
+    public Integer getOrdersLeftAfterGivenTimeByPartnerId(String timee, String id){
+        String [] time_ = timee.split(":");
+        int time = Integer.parseInt(time_[0])*60 + Integer.parseInt(time_[1]);
+        Integer count = 0;
+        if(pair_list.containsKey(id)) {
+            List<String> list = pair_list.get(id);
+
+            for (String order : list) {
+                if (order_map.containsKey(order)) {
+                    Order obj = order_map.get(order);
+                    if (time < obj.getDeliveryTime()) count+=1;
+                }
+            }
         }
         return count;
     }
@@ -92,24 +108,29 @@ public class OrderRepository {
 
     public String  last_time(String id){
 
-        int temp=0;
+        Integer temp=0;
         if(pair_list.containsKey(id)){
-            for(String s : pair_list.get(id)){
-                if(order_map.get(s).getDeliveryTime()>temp){
-                    temp = order_map.get(s).getDeliveryTime();
+            for(String s : pair_list.get(id)) {
+                if (order_map.containsKey(s)) {
+                   Order order = order_map.get(s);
+                   temp = Math.max(temp,order.getDeliveryTime());
                 }
             }
 
         }
-        String H = "";
-        String M = "";
-        int hour = temp /60;
-        int min = temp % 60;
-        H = String.valueOf(hour);
-        M = String.valueOf(min);
-        if(H.length()<2) H = "0"+H;
-        if(M.length()<2) M = "0"+M;
-        return H+":"+M;
+        Integer hour = temp/60;
+        Integer minutes = temp%60;
+
+        String hourInString = String.valueOf(hour);
+        String minInString = String.valueOf(minutes);
+        if(hourInString.length() == 1){
+            hourInString = "0" + hourInString;
+        }
+        if(minInString.length() == 1){
+            minInString = "0" + minInString;
+        }
+
+        return  hourInString + ":" + minInString;
     }
      // 12
     public void delete_partner(String id){
@@ -126,21 +147,21 @@ public class OrderRepository {
       }
     }
     public void delete_order(String id){
-        if(this.order_map.containsKey(id)){
-            order_map.remove(id);
-        }
+
         if(pair.containsKey(id)){
             String partner = pair.get(id);
             if(pair_list.containsKey(partner)){
-                for(String s : pair_list.get(partner)){
-                    if(s.equals(id)){
-                        pair_list.get(partner).remove(s);
-                    }
-                }
+               List<String> order_list = pair_list.get(partner);
+               order_list.remove(id);
+               pair_list.put(partner,order_list);
             }
             DeliveryPartner obj = partner_map.get(partner);
             obj.setNumberOfOrders(pair_list.get(partner).size());
             pair.remove(id);
+        }
+        // another one
+        if(this.order_map.containsKey(id)){
+            order_map.remove(id);
         }
     }
 
