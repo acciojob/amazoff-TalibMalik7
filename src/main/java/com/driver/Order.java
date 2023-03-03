@@ -9,17 +9,15 @@ public class Order {
 
         // The deliveryTime has to converted from string to int and then stored in the attribute
         //deliveryTime  = HH*60 + MM
-        this.id = id;
-        String [] time = deliveryTime.split(":");
-        this.deliveryTime = Integer.parseInt(time[0])*60 + Integer.parseInt(time[1]);
-    }
+        this.id=id;
+        int hours=0;
+        int minutes=0;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+        hours= Integer.parseInt(deliveryTime.substring(0,2));
+        minutes= Integer.parseInt(deliveryTime.substring(3,5));
+        hours=hours*60;
+        this.deliveryTime=hours+minutes;
 
-    public void setDeliveryTime(int deliveryTime) {
-        this.deliveryTime = deliveryTime;
     }
 
     public String getId() {
@@ -28,4 +26,3 @@ public class Order {
 
     public int getDeliveryTime() {return deliveryTime;}
 }
-
