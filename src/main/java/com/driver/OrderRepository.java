@@ -37,8 +37,7 @@ public class OrderRepository {
     public void addPair(String order, String partner){
         pair.put(order,partner);
         if(pair_list.containsKey(partner)){
-            List<String> temp = pair_list.get(partner);
-            temp.add(order);
+            pair_list.get(partner).add(order);
         }
         else{
             List<String> temp = new ArrayList<>();
@@ -95,7 +94,12 @@ public class OrderRepository {
 
         int temp=0;
         if(pair_list.containsKey(id)){
-             temp = order_map.get(pair_list.get(id)).getDeliveryTime();
+            for(String s : pair_list.get(id)){
+                if(order_map.get(s).getDeliveryTime()>temp){
+                    temp = order_map.get(s).getDeliveryTime();
+                }
+            }
+
         }
         String H = "";
         String M = "";
