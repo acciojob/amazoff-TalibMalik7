@@ -56,8 +56,8 @@ public class OrderRepository {
     }
    //6
     public Integer order_count(String id){
-        if(partner_map.containsKey(id))
-        return  partner_map.get(id).getNumberOfOrders();
+        if(pair_list.containsKey(id))
+        return  pair_list.get(id).size();
         return  0;
     }
     //7
