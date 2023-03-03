@@ -39,20 +39,26 @@ public class OrderRepository {
             pair_list.put(partner,temp);
         }
         DeliveryPartner obj = partner_map.get(partner);
-        int no = obj.getNumberOfOrders();
-        obj.setNumberOfOrders(no+1);
+        int no = pair_list.get(partner).size();
+        obj.setNumberOfOrders(no);
     }
     //4
     public Order get_order_by_id(String id){
+        if(this.order_map.containsKey(id))
         return order_map.get(id);
+        return null;
     }
     //5
     public DeliveryPartner get_partner_by_id(String id){
+        if(partner_map.containsKey(id))
         return partner_map.get(id);
+        return null;
     }
    //6
     public Integer order_count(String id){
+        if(partner_map.containsKey(id))
         return  partner_map.get(id).getNumberOfOrders();
+        return  0;
     }
     //7
     public List<String> order_list(String id){
