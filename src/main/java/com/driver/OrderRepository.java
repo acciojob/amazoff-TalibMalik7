@@ -8,12 +8,19 @@ import java.util.List;
 import java.util.ArrayList;
 @Repository
 public class OrderRepository {
-    HashMap<String,Order> order_map = new HashMap<>();
-    HashMap<String,DeliveryPartner> partner_map= new HashMap<>();
-    HashMap<String,String> pair = new HashMap<>();
-    HashMap<String, List<String>> pair_list = new HashMap<>();
+    HashMap<String,Order> order_map;
+    HashMap<String,DeliveryPartner> partner_map;
+    HashMap<String,String> pair;
+    HashMap<String, List<String>> pair_list;
 
-    public OrderRepository(){}
+
+
+    public OrderRepository(){
+        this.order_map = new HashMap<>();
+        this.partner_map = new HashMap<>();
+        this.pair = new HashMap<>();
+        this.pair_list = new HashMap<>();
+    }
 
     //1
     public void addOrder(Order order){
