@@ -34,7 +34,7 @@ public class OrderRepository {
 
     }
     //3
-    public void addPair(String order, String partner){
+    public void addOrderPartnerPair(String order, String partner){
         // this if is change extra - see it later
         if(order_map.containsKey(order) && partner_map.containsKey(partner)) {
 

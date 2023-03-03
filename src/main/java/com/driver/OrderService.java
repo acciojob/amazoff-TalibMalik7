@@ -19,31 +19,31 @@ public class OrderService {
 
          repository.addPartner(partner);
     }
-     public void addPair(String order,String partner){
+     public void addOrderPartnerPair(String order,String partner){
 
-         repository.addPair(order,partner);
+         repository.addOrderPartnerPair(order,partner);
      }
-     public Order get_order(String id){
+     public Order getOrderById(String id){
 
          return repository.get_order_by_id(id);
     }
-     public DeliveryPartner get_partner(String id){
+     public DeliveryPartner getPartnerById(String id){
 
          return repository.get_partner_by_id(id);
     }
-     public  Integer order_count(String id){
+     public  Integer getOrderCountByPartnerId(String id){
 
          return repository.order_count(id);
     }
-     public List<String> order_list(String id){
+     public List<String> getOrdersByPartnerId(String id){
 
          return  repository.order_list(id);
      }
-     public List<String> all_orders(){
+     public List<String> getAllOrders(){
 
          return repository.all_orders();
      }
-     public int unassigned_order(){
+     public int getCountOfUnassignedOrders(){
 
          return repository.unassigned_order();
      }
@@ -51,16 +51,16 @@ public class OrderService {
 
        return repository.getOrdersLeftAfterGivenTimeByPartnerId(timee, id);
      }
-     public String last_time(String id){
+     public String getLastDeliveryTimeByPartnerId(String id){
 
          return repository.last_time(id);
      }
 
-     public void delete_partner(String id){
+     public void deletePartnerById(String id){
 
          repository.delete_partner(id);
      }
-     public void delete_order(String id){
+     public void deleteOrderById(String id){
 
          repository.delete_order(id);
      }
