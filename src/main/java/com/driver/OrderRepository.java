@@ -85,7 +85,15 @@ public class OrderRepository {
     //9
     public int getCountOfUnassignedOrders(){
         // change it if doest work
-        return order_map.size()- pair.size();
+        //return order_map.size()- pair.size();
+        Integer countOfOrders = 0;
+        List<String> orders =  new ArrayList<>(order_map.keySet());
+        for(String orderId: orders){
+            if(!pair.containsKey(orderId)){
+                countOfOrders += 1;
+            }
+        }
+        return countOfOrders;
     }
     //10
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String timee, String id){
