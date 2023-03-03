@@ -25,27 +25,27 @@ public class OrderService {
      }
      public Order getOrderById(String id){
 
-         return repository.get_order_by_id(id);
+         return repository.getOrderById(id);
     }
      public DeliveryPartner getPartnerById(String id){
 
-         return repository.get_partner_by_id(id);
+         return repository.getPartnerById(id);
     }
      public  Integer getOrderCountByPartnerId(String id){
 
-         return repository.order_count(id);
+         return repository.getOrderCountByPartnerId(id);
     }
      public List<String> getOrdersByPartnerId(String id){
 
-         return  repository.order_list(id);
+         return  repository.getOrdersByPartnerId(id);
      }
      public List<String> getAllOrders(){
 
-         return repository.all_orders();
+         return repository.getAllOrders();
      }
      public int getCountOfUnassignedOrders(){
 
-         return repository.unassigned_order();
+         return repository.getCountOfUnassignedOrders();
      }
      public Integer getOrdersLeftAfterGivenTimeByPartnerId(String timee, String id){
 
@@ -53,16 +53,16 @@ public class OrderService {
      }
      public String getLastDeliveryTimeByPartnerId(String id){
 
-         return repository.last_time(id);
+         return repository.getLastDeliveryTimeByPartnerId(id);
      }
 
      public void deletePartnerById(String id){
 
-         repository.delete_partner(id);
+         repository.deletePartnerById(id);
      }
      public void deleteOrderById(String id){
 
-         repository.delete_order(id);
+         repository.deleteOrderById(id);
      }
 
 }

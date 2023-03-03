@@ -53,19 +53,19 @@ public class OrderRepository {
         }
     }
     //4
-    public Order get_order_by_id(String id){
+    public Order getOrderById(String id){
         if(this.order_map.containsKey(id))
         return order_map.get(id);
         return null;
     }
     //5
-    public DeliveryPartner get_partner_by_id(String id){
+    public DeliveryPartner getPartnerById(String id){
         if(partner_map.containsKey(id))
         return partner_map.get(id);
         return null;
     }
    //6
-    public Integer order_count(String id){
+    public Integer getOrderCountByPartnerId(String id){
         Integer count = 0;
         if(partner_map.containsKey(id)){
             count = partner_map.get(id).getNumberOfOrders();
@@ -73,17 +73,17 @@ public class OrderRepository {
         return  count;
     }
     //7
-    public List<String> order_list(String id){
+    public List<String> getOrdersByPartnerId(String id){
         if(pair_list.containsKey(id))
         return pair_list.get(id);
         return new ArrayList<String>();
     }
     //8
-    public List<String> all_orders(){
+    public List<String> getAllOrders(){
         return new ArrayList<>(order_map.keySet());
     }
     //9
-    public int unassigned_order(){
+    public int getCountOfUnassignedOrders(){
         // change it if doest work
         return order_map.size()- pair.size();
     }
@@ -106,7 +106,7 @@ public class OrderRepository {
     }
     //11
 
-    public String  last_time(String id){
+    public String  getLastDeliveryTimeByPartnerId(String id){
 
         Integer temp=0;
         if(pair_list.containsKey(id)){
@@ -133,7 +133,7 @@ public class OrderRepository {
         return  hourInString + ":" + minInString;
     }
      // 12
-    public void delete_partner(String id){
+    public void deletePartnerById(String id){
         if(this.pair_list.containsKey(id)){
             for(String s : pair_list.get(id)){
                 if(pair.containsKey(s)){
@@ -146,7 +146,7 @@ public class OrderRepository {
           this.partner_map.remove(id);
       }
     }
-    public void delete_order(String id){
+    public void deleteOrderById(String id){
 
         if(pair.containsKey(id)){
             String partner = pair.get(id);
