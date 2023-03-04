@@ -9,7 +9,7 @@ import java.util.List;
 public class OrderService {
 
     @Autowired
-    OrderRepository repository ;
+    OrderRepository repository = new OrderRepository();
 
     public void addOrder(Order order){
 
