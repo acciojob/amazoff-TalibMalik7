@@ -141,7 +141,7 @@ public class OrderRepository {
         return  hourInString + ":" + minInString;
     }
     // 12
-    public void deletePartner(String id){
+    public void deletePartnerById(String id){
         if(this.pair_list.containsKey(id)){
             for(String s : pair_list.get(id)){
                 if(pair.containsKey(s)){
@@ -154,7 +154,7 @@ public class OrderRepository {
             this.partner_map.remove(id);
         }
     }
-    public void deleteOrder(String id){
+    public void deleteOrderById(String id){
 
         if(pair.containsKey(id)){
             String partner = pair.get(id);
